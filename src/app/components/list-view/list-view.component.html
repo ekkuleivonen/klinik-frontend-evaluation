@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let animal of animals">
+    <app-condensed-list-item [animal]="animal"></app-condensed-list-item>
+  </li>
+</ul>
+
+<!-- Detail views will emerge in the router-outlet below-->
+<router-outlet></router-outlet>
