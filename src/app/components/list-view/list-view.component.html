@@ -1,8 +1,15 @@
-<ul>
-  <li *ngFor="let animal of animals">
-    <app-condensed-list-item [animal]="animal"></app-condensed-list-item>
-  </li>
-</ul>
-
-<!-- Detail views will emerge in the router-outlet below-->
-<router-outlet></router-outlet>
+<div class="list-view">
+  <ul class="animals-list">
+    <li *ngFor="let animal of animals">
+      <app-condensed-list-item [animal]="animal"></app-condensed-list-item>
+    </li>
+  </ul>
+  <div class="details-box">
+    <p>
+      <strong>Instructions:</strong>
+      Click on an animal to see more information about it.
+    </p>
+    <!-- Detail views will emerge in the router-outlet below-->
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AnimalsService } from '../../services/animals.service';
 import type { Animal } from '../../services/animals.service';
 // @ts-ignore

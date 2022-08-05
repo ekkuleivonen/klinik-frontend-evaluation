@@ -1,10 +1,27 @@
-.condensed-list-item-content-wrapper {
+.condensed-list-item .content-wrapper {
   display: flex;
-  max-height: 100px;
+  align-items: center;
+  width: 60%;
+  height: 75px;
+  overflow: hidden;
+  margin-top: 2.5px;
+  margin-bottom: 2.5px;
+  transition: all 0.075s cubic-bezier(1, 0.01, 0.81, 1.01);
 }
 
-.condensed-list-item-content-wrapper img {
-  max-height: 100%;
-  max-width: 100px;
+.condensed-list-item .content-wrapper:hover {
+  width: 80%;
+  margin-left: 10px;
+  box-shadow: 5px 5px 20px 5px #0000002b;
+}
+
+.condensed-list-item .content-wrapper img {
+  height: 100%;
+  aspect-ratio: 1/1;
   object-fit: cover;
+  margin-right: 0.75em;
+}
+
+.condensed-list-item .content-wrapper h3 {
+  color: rgb(33, 33, 33);
 }

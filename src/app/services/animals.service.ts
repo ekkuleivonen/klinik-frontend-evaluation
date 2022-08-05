@@ -24,4 +24,11 @@ export class AnimalsService {
     this.animals = data;
     return this.animals;
   }
+
+  async getAnimalCount(): Promise<number> {
+    if (this.animals.length === 0) {
+      await this.getAllAnimals();
+    }
+    return this.animals.length;
+  }
 }

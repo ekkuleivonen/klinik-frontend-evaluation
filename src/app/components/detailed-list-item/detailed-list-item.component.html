@@ -1,3 +1,15 @@
 <div class="animal-detail-view">
-  <h2>hello from details</h2>
+  <div class="img-cell">
+    <img
+      src="{{ animal ? animal.picture : null }}"
+      alt="profile image of an animal"
+    />
+  </div>
+  <div class="text-cell">
+    <p>NAME: {{ animal ? animal.name : "loading" }}</p>
+    <p>ANIMAL: {{ animal ? animal.animal : "loading" }}</p>
+    <p>BREED: {{ animal ? animal.breed : "loading" }}</p>
+    <p>AGE: {{ animal ? animal.age : "loading" }}</p>
+  </div>
+  <app-previous-next-bar [animalCount]="animalCount"></app-previous-next-bar>
 </div>
