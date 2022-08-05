@@ -7,21 +7,24 @@
   margin-top: 2.5px;
   margin-bottom: 2.5px;
   transition: all 0.075s cubic-bezier(1, 0.01, 0.81, 1.01);
+  padding: 0.5em 1.5em;
+  border-radius: 0em 0.5em 0.5em 0em;
 }
 
 .condensed-list-item .content-wrapper:hover {
   width: 80%;
   margin-left: 10px;
-  box-shadow: 5px 5px 20px 5px #0000002b;
+  border-left: solid 2px rgba(230, 215, 255, 0.3);
 }
 
 .condensed-list-item .content-wrapper img {
   height: 100%;
   aspect-ratio: 1/1;
   object-fit: cover;
-  margin-right: 0.75em;
+  margin-right: 1em;
+  border-radius: 50%;
+  border: solid 1px var(--white);
 }
 
 .condensed-list-item .content-wrapper h3 {
-  color: rgb(33, 33, 33);
 }

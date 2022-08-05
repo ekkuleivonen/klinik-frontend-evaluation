@@ -9,6 +9,8 @@ import type { Animal } from '../../services/animals.service';
 })
 export class ListViewComponent implements OnInit {
   animals: Animal[] = [];
+  topGradient: HTMLDivElement | null = null;
+  bottomGradient: HTMLDivElement | null = null;
 
   constructor(service: AnimalsService) {
     service.getAllAnimals().then((data) => {
@@ -16,5 +18,18 @@ export class ListViewComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  handleMouseMove = (event: MouseEvent) => {
+    if (!this.topGradient || !this.bottomGradient) return;
+    const mouseY = event.clientY;
+    const mouseX = event.clientX;
+    if (mouseX > window.innerWidth / 2.15) return;
+    this.topGradient.style.height = `${mouseY - 200}px`;
+    this.bottomGradient.style.height = `${window.innerHeight - mouseY - 200}px`;
+  };
+
+  ngOnInit(): void {
+    this.topGradient = document.querySelector('.top-gradient');
+    this.bottomGradient = document.querySelector('.bottom-gradient');
+    document.addEventListener('mousemove', this.handleMouseMove);
+  }
 }

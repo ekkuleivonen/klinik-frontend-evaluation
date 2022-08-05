@@ -6,10 +6,15 @@
     />
   </div>
   <div class="text-cell">
-    <p>NAME: {{ animal ? animal.name : "loading" }}</p>
+    <p class="name">
+      {{ animal ? animal.name : "loading" }}
+      <span class="pronouns">({{ animal ? animal.pronouns : "loading" }})</span>
+    </p>
     <p>ANIMAL: {{ animal ? animal.animal : "loading" }}</p>
     <p>BREED: {{ animal ? animal.breed : "loading" }}</p>
     <p>AGE: {{ animal ? animal.age : "loading" }}</p>
   </div>
-  <app-previous-next-bar [animalCount]="animalCount"></app-previous-next-bar>
+  <div class="next-bar-cell">
+    <app-previous-next-bar [animalCount]="animalCount"></app-previous-next-bar>
+  </div>
 </div>

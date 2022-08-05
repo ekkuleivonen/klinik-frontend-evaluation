@@ -1,23 +1,58 @@
-.list-view {
+:host {
   display: flex;
-  align-items: center;
   width: 90vw;
+  height: 100vh;
+  align-items: center;
 }
 
 .animals-list {
   width: 40%;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-height: 90vh;
+  overflow: scroll;
+  padding-bottom: 10em;
+  padding-top: 10em;
+}
+
+.animals-list::-webkit-scrollbar {
+  display: none;
+}
+
+.top-gradient,
+.bottom-gradient {
+  width: 35%;
+  height: 35vh;
+  position: fixed;
+  left: 0;
+  z-index: 10;
+}
+
+.top-gradient {
+  top: 0;
+  background: linear-gradient(180deg, #191827 25%, rgba(25, 24, 39, 0) 100%);
+}
+.bottom-gradient {
+  bottom: 0;
+  background: linear-gradient(0deg, #191827 25%, rgba(25, 24, 39, 0) 100%);
 }
 
 .details-box {
   width: 60%;
   height: 80vh;
-  background-color: rgb(169, 169, 169);
+  background-color: rgb(28, 28, 28);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  border-radius: 1em;
+}
+
+.instructions-dialog {
+  font-weight: 400;
+  font-size: 1.25em;
+  color: rgb(210, 210, 210);
+  max-width: 40%;
+  text-align: center;
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 export type Animal = {
+  pronouns?: string;
   id: number;
   animal: string;
   breed: string;
@@ -19,9 +20,15 @@ export class AnimalsService {
   animals: Animal[] = [];
 
   async getAllAnimals(): Promise<Animal[]> {
+    if (this.animals.length > 0) {
+      return this.animals;
+    }
     const response = await fetch(ALL_ANIMALS_ENDPOINT_URL);
     const data = await response.json();
     this.animals = data;
+    this.animals.forEach((animal) => {
+      animal.pronouns = this.getRandomPronouns();
+    });
     return this.animals;
   }
 
@@ -30,5 +37,19 @@ export class AnimalsService {
       await this.getAllAnimals();
     }
     return this.animals.length;
+  }
+
+  getRandomPronouns(): string {
+    const random = Math.floor(Math.random() * 3);
+    switch (random) {
+      case 0:
+        return 'he, him, his';
+      case 1:
+        return 'she, her, hers';
+      case 2:
+        return 'they, them, theirs';
+      default:
+        return 'they, them, theirs';
+    }
   }
 }
