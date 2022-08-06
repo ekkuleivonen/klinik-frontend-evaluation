@@ -1,20 +1,22 @@
 <div class="animal-detail-view">
   <div class="img-cell">
     <img
-      src="{{ animal ? animal.picture : null }}"
+      src="{{ (animal$ | async)?.picture }}"
       alt="profile image of an animal"
     />
   </div>
   <div class="text-cell">
     <p class="name">
-      {{ animal ? animal.name : "loading" }}
-      <span class="pronouns">({{ animal ? animal.pronouns : "loading" }})</span>
+      {{ (animal$ | async)?.name }}
+      <span class="pronouns">({{ (animal$ | async)?.pronouns }})</span>
     </p>
-    <p>ANIMAL: {{ animal ? animal.animal : "loading" }}</p>
-    <p>BREED: {{ animal ? animal.breed : "loading" }}</p>
-    <p>AGE: {{ animal ? animal.age : "loading" }}</p>
+    <p>ANIMAL: {{ (animal$ | async)?.animal }}</p>
+    <p>BREED: {{ (animal$ | async)?.breed }}</p>
+    <p>AGE: {{ (animal$ | async)?.age }}</p>
   </div>
   <div class="next-bar-cell">
-    <app-previous-next-bar [animalCount]="animalCount"></app-previous-next-bar>
+    <app-previous-next-bar
+      [animalCount$]="animalCount$"
+    ></app-previous-next-bar>
   </div>
 </div>

@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export type Animal = {
   pronouns?: string;
@@ -10,35 +13,38 @@ export type Animal = {
   picture: string;
 };
 
-const ALL_ANIMALS_ENDPOINT_URL =
-  'https://storage.googleapis.com/klinik-shared-media/evaluation-task/klinik-pets.json';
-
 @Injectable({
   providedIn: 'root',
 })
 export class AnimalsService {
+  ROOT_URL = 'https://storage.googleapis.com';
   animals: Animal[] = [];
 
-  async getAllAnimals(): Promise<Animal[]> {
-    if (this.animals.length > 0) {
-      return this.animals;
-    }
-    const response = await fetch(ALL_ANIMALS_ENDPOINT_URL);
-    const data = await response.json();
-    this.animals = data;
-    this.animals.forEach((animal) => {
-      animal.pronouns = this.getRandomPronouns();
-    });
-    return this.animals;
-  }
+  constructor(private http: HttpClient) {}
 
-  async getAnimalCount(): Promise<number> {
-    if (this.animals.length === 0) {
-      await this.getAllAnimals();
-    }
-    return this.animals.length;
+  fetchAnimals(): Observable<Animal[]> {
+    return this.http.get<Animal[]>(
+      `${this.ROOT_URL}/klinik-shared-media/evaluation-task/klinik-pets.json`
+    );
   }
-
+  getAnimals(): Observable<Animal[]> {
+    return this.fetchAnimals().pipe(
+      map((animals) =>
+        animals.map((animal) => ({
+          ...animal,
+          pronouns: this.getRandomPronouns(),
+        }))
+      )
+    );
+  }
+  findAnimal(id: number): Observable<Animal> | null {
+    return this.getAnimals().pipe(
+      map((animals) => animals.filter((animal) => animal.id === id)[0])
+    );
+  }
+  getAnimalCount(): Observable<number> {
+    return this.getAnimals().pipe(map((animals) => animals.length));
+  }
   getRandomPronouns(): string {
     const random = Math.floor(Math.random() * 3);
     switch (random) {

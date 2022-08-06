@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import type { Animal } from '../../services/animals.service';
 import { AnimalsService } from '../../services/animals.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-detailed-list-item',
@@ -9,29 +10,20 @@ import { AnimalsService } from '../../services/animals.service';
   styleUrls: ['./detailed-list-item.component.css'],
 })
 export class DetailedListItemComponent implements OnInit {
-  public id?: string | null;
-  public animal: Animal | null = null;
-  public animalCount: number | null = null;
+  id!: string;
+  animal$!: Observable<Animal> | null;
+  animalCount$!: Observable<number>;
 
   constructor(
     private route: ActivatedRoute,
     private animalService: AnimalsService
   ) {}
 
-  fetchAnimal(id: string | null): void {
-    if (!id) return;
-    this.animalService.getAllAnimals().then((data) => {
-      const foundAnimal = data.find((animal) => animal.id === parseInt(id));
-      if (!foundAnimal) return;
-      this.animal = foundAnimal;
-    });
-  }
-
   ngOnInit(): void {
-    this.route.params.subscribe(async (paramsId) => {
-      this.id = paramsId['id'] as string | null;
-      this.fetchAnimal(this.id);
-      this.animalCount = await this.animalService.getAnimalCount();
+    this.route.params.subscribe((paramsId) => {
+      this.id = paramsId['id'] as string;
+      this.animal$ = this.animalService.findAnimal(+this.id);
+      this.animalCount$ = this.animalService.getAnimalCount();
     });
   }
 }

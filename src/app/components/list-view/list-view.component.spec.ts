@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ListViewComponent } from './list-view.component';
 
@@ -8,9 +10,9 @@ describe('ListViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListViewComponent ]
-    })
-    .compileComponents();
+      declarations: [ListViewComponent],
+      imports: [HttpClientModule, RouterTestingModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ListViewComponent);
     component = fixture.componentInstance;

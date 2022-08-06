@@ -10,8 +10,22 @@ import Typewriter from 't-writer.js';
   styleUrls: ['./statistics-note.component.css'],
 })
 export class StatisticsNoteComponent implements OnInit {
-  animals: Animal[] = [];
+  welcomeButtonText: string = 'Show me the animals!';
+  animals!: Animal[];
+  statistics: {} = {
+    dogCount: null,
+    averageAge: null,
+    mostCommonBreed: null,
+  };
 
+  constructor(private animalsService: AnimalsService) {}
+
+  ngOnInit(): void {
+    this.animalsService.getAnimals().subscribe((animals) => {
+      this.animals = animals;
+      this.launchTypeWriter();
+    });
+  }
   getDogCount(): number {
     return this.animals.filter((animal) => animal.animal === 'Dog').length;
   }
@@ -36,58 +50,44 @@ export class StatisticsNoteComponent implements OnInit {
     if (!mostCommonBreed) return 'no breed';
     return mostCommonBreed;
   }
-  constructor(service: AnimalsService) {
-    service.getAllAnimals().then((data) => {
-      this.animals = data;
-      this.launchTypeWriter();
-    });
-  }
   launchTypeWriter() {
-    const target1 = document.querySelector('#tw1');
-    const target2 = document.querySelector('#tw2');
-    const target3 = document.querySelector('#tw3');
-    const target4 = document.querySelector('#tw4');
-    const target5 = document.querySelector('#tw5');
-    const target6 = document.querySelector('#tw6');
     const options = {
       loop: false,
       typeSpeed: 40,
       typeColor: '#fff',
       cursorColor: '#fff',
     };
-    const writer1 = new Typewriter(target1, options);
-    const writer2 = new Typewriter(target2, options);
-    const writer3 = new Typewriter(target3, options);
-    const writer4 = new Typewriter(target4, options);
-    const writer5 = new Typewriter(target5, options);
-    const writer6 = new Typewriter(target6, options);
+    const targets = Array.from(
+      document.querySelectorAll('.welcome-text-prompt')
+    ) as HTMLElement[];
+    const writers = targets.map((target) => new Typewriter(target, options));
 
-    writer1
+    writers[0]
       .type(
         'This is the space for our employees to share their common love towards our furry friends.'
       )
       .rest(500)
-      .then(writer2.start.bind(writer2))
+      .then(writers[1].start.bind(writers[1]))
       .removeCursor()
       .start();
 
-    writer2
+    writers[1]
       .type(
         `Did you know that we have a whopping ${this.getDogCount()} dogs within our team?`
       )
       .rest(500)
       .removeCursor()
-      .then(writer3.start.bind(writer3));
+      .then(writers[2].start.bind(writers[2]));
 
-    writer3
+    writers[2]
       .type('Yup, we a real bunch of animal lovers over here! ')
       .rest(500)
       .type('We do our best to provide our pets with the best homes possible.')
       .rest(500)
       .removeCursor()
-      .then(writer4.start.bind(writer4));
+      .then(writers[3].start.bind(writers[3]));
 
-    writer4
+    writers[3]
       .type(
         `In fact, we've done so well, that the average age of our animals is ${this.getAverageAgeOfAnimals()}. `
       )
@@ -97,9 +97,9 @@ export class StatisticsNoteComponent implements OnInit {
       .type(`Do you think an animal would live up to that age in a poor home? `)
       .rest(500)
       .removeCursor()
-      .then(writer5.start.bind(writer5));
+      .then(writers[4].start.bind(writers[4]));
 
-    writer5
+    writers[4]
       .type(`But as it seems, we do have our favourites. `)
       .rest(500)
       .type(
@@ -111,49 +111,11 @@ export class StatisticsNoteComponent implements OnInit {
       .type(`what does that say about us? `)
       .rest(1000)
       .removeCursor()
-      .then(writer6.start.bind(writer6));
+      .then(writers[5].start.bind(writers[5]));
 
-    writer6
+    writers[5]
       .type('What are you waiting for? ')
       .rest(500)
       .type('Click the button below to discover our furry friends! ');
-
-    // writer1
-    //   .type(
-    //     `Welcome to Klinik's animal shelter. -The space for our employees to share their common love towards our furry friends. `
-    //   )
-    //   .rest(500)
-    //   .type(
-    //     `Did you know that we have a whopping ${this.getDogCount()} dogs within our team? `
-    //   )
-    //   .rest(300)
-    //   .type(`Yup, we a real bunch of animal lovers over here! `)
-    //   .rest(300)
-    //   .type(`We do our best to provide our pets with the best homes possible. `)
-    //   .rest(300)
-    //   .type(
-    //     `In fact, we've done so well, that the average age of our animals is ${this.getAverageAgeOfAnimals()}. That's right, ${this.getAverageAgeOfAnimals()}! Do you think an animal would live up to that age in a poor home? `
-    //   )
-    //   .rest(300)
-    //   .type(
-    //     `Do you think an animal would live up to that age in a poor home?`
-    //   )
-    //   .rest(300)
-    //   .type(`But as it seems, we do have our favourites. `)
-    //   .rest(300)
-    //   .type(
-    //     `${this.getMostCommonBreed()}s have taken the spotlight, and are now the most popular breed in our shelter. `
-    //   )
-    //   .rest(300)
-    //   .type(`Now, what does that say about us? `)
-    //   .rest(500)
-    //   .type(
-    //     `OK. That's enough. You came here to peek at some cute furry photos, didn't you? `
-    //   )
-    //   .rest(1000)
-    //   .type(`What are you waiting for? Click the button below!`)
-    //   .start();
   }
-
-  ngOnInit(): void {}
 }

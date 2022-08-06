@@ -9,8 +9,11 @@ import { StatisticsNoteComponent } from './components/statistics-note/statistics
 import { PreviousNextBarComponent } from './components/previous-next-bar/previous-next-bar.component';
 import { AnimalsService } from './services/animals.service';
 import { ListViewComponent } from './components/list-view/list-view.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule, RouterModule],
   declarations: [
     AppComponent,
     CondensedListItemComponent,
@@ -19,7 +22,6 @@ import { ListViewComponent } from './components/list-view/list-view.component';
     PreviousNextBarComponent,
     ListViewComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
   providers: [AnimalsService],
   bootstrap: [AppComponent],
 })

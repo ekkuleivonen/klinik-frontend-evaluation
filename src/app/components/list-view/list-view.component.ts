@@ -12,12 +12,15 @@ export class ListViewComponent implements OnInit {
   topGradient: HTMLDivElement | null = null;
   bottomGradient: HTMLDivElement | null = null;
 
-  constructor(service: AnimalsService) {
-    service.getAllAnimals().then((data) => {
-      this.animals = data;
+  constructor(private animalsService: AnimalsService) {}
+  ngOnInit(): void {
+    this.animalsService.getAnimals().subscribe((animals) => {
+      this.animals = animals;
     });
+    this.topGradient = document.querySelector('.top-gradient');
+    this.bottomGradient = document.querySelector('.bottom-gradient');
+    document.addEventListener('mousemove', this.handleMouseMove);
   }
-
   handleMouseMove = (event: MouseEvent) => {
     if (!this.topGradient || !this.bottomGradient) return;
     const mouseY = event.clientY;
@@ -26,10 +29,4 @@ export class ListViewComponent implements OnInit {
     this.topGradient.style.height = `${mouseY - 200}px`;
     this.bottomGradient.style.height = `${window.innerHeight - mouseY - 200}px`;
   };
-
-  ngOnInit(): void {
-    this.topGradient = document.querySelector('.top-gradient');
-    this.bottomGradient = document.querySelector('.bottom-gradient');
-    document.addEventListener('mousemove', this.handleMouseMove);
-  }
 }
