@@ -42,18 +42,21 @@
   flex-direction: column;
 }
 
-.text-cell .name {
-  color: var(--green);
-  font-weight: bold;
-  font-size: 2em;
+.name-and-pronouns {
   display: flex;
   align-items: center;
 }
 
-.text-cell .name .pronouns {
+.text-cell .name {
+  color: var(--green);
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.text-cell .pronouns {
   color: var(--white);
   font-weight: 400;
-  font-size: 0.75em;
+  font-size: 1.25em;
   margin-left: 0.5em;
 }
 

@@ -22,7 +22,7 @@ describe('StatisticsNoteComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
   it('should have a set of p tags for text prompts', () => {
