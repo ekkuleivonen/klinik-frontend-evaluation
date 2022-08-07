@@ -57,6 +57,32 @@
   margin-left: 0.5em;
 }
 
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 1em;
+  width: 100%;
+  height: 100%;
+  margin-top: 0.5em;
+}
+
+.details-grid .detail-cell {
+  padding: 0.5em;
+  margin-left: -0.5em;
+}
+
+.detail-cell .detail-label {
+  opacity: 0.5;
+  font-size: 0.8em;
+}
+
+.detail-cell .detail-value {
+  font-weight: bold;
+  font-size: 1.25em;
+  opacity: 0.8;
+}
+
 .next-bar-cell {
   padding: 2em;
   width: 100%;

@@ -10,9 +10,24 @@
       {{ (animal$ | async)?.name }}
       <span class="pronouns">({{ (animal$ | async)?.pronouns }})</span>
     </p>
-    <p>ANIMAL: {{ (animal$ | async)?.animal }}</p>
-    <p>BREED: {{ (animal$ | async)?.breed }}</p>
-    <p>AGE: {{ (animal$ | async)?.age }}</p>
+
+    <div class="details-grid">
+      <div class="detail-cell">
+        <p class="detail-label">Animal:</p>
+        <p class="detail-value">{{ (animal$ | async)?.animal }}</p>
+      </div>
+      <div class="detail-cell">
+        <p class="detail-label">Breed:</p>
+        <p class="detail-value">{{ (animal$ | async)?.breed }}</p>
+      </div>
+      <div class="detail-cell">
+        <p class="detail-label">Age:</p>
+        <p class="detail-value">{{ (animal$ | async)?.age }}</p>
+      </div>
+      <!-- <p>ANIMAL: {{ (animal$ | async)?.animal }}</p>
+      <p>BREED: {{ (animal$ | async)?.breed }}</p>
+      <p>AGE: {{ (animal$ | async)?.age }}</p> -->
+    </div>
   </div>
   <div class="next-bar-cell">
     <app-previous-next-bar
